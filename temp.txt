@@ -1,0 +1,24 @@
+#define CAYENNE_PRINT Serial  
+#include <CayenneEthernet.h>
+#include <SPI.h>
+#include <Ethernet.h>
+char token[] = "*******";
+#define VIRTUAL_PIN V1
+int Tempsensor = A0;
+
+void setup()
+{
+  
+  Serial.begin(9600);
+  Cayenne.begin(token);
+}
+
+void loop()
+{
+  Cayenne.run();
+}
+CAYENNE_OUT(VIRTUAL_PIN)
+{
+   float temp = (5.0 * analogRead(A0) * 100.0) / 1024;
+   Cayenne.virtualWrite(VIRTUAL_PIN, temp);
+}
